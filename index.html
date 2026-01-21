@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAVIYA R | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617;
+            color: #f8fafc;
+        }
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .shadow-3xl {
+            box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.5);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.3",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "lucide-react": "https://esm.sh/lucide-react@0.475.0"
+      }
+    }
+    </script>
+
+    <script type="module">
+        import React, { useState, useEffect } from 'react';
+        import ReactDOM from 'react-dom/client';
+        import { 
+            Mail, Phone, MapPin, Code, BookOpen, Award, User, 
+            ChevronRight, Send, X, Menu, Briefcase, Github, Linkedin, Terminal
+        } from 'lucide-react';
+
+        const KAVIYA_DATA = {
+            name: "KAVIYA R",
+            title: "Aspiring Software Engineer & Computer Science Student",
+            email: "kaviyaramasamy66@gmail.com",
+            phone: "+91 95859 48816",
+            objective: "To obtain a challenging position in the IT industry where I can contribute to organizational growth while working in a dynamic environment.",
+            education: [
+                {
+                    degree: "B.Sc. Computer Science",
+                    institution: "Nallamuthu Gounder Mahalingam College (Bharathiyar University)",
+                    location: "Coimbatore",
+                    period: "2023 - 2026",
+                    score: "70.2% (Current)"
+                },
+                {
+                    degree: "Higher Secondary (HSC)",
+                    institution: "Sri Laxmi Vidhya Bhavan Matric Higher Secondary School",
+                    location: "Meenakshipuram",
+                    period: "2022 - 2023",
+                    score: "70.1%"
+                },
+                {
+                    degree: "SSLC",
+                    institution: "Sri Laxmi Vidhya Bhavan Matric Higher Secondary School",
+                    location: "Meenakshipuram",
+                    period: "2020 - 2021",
+                    score: "100%"
+                }
+            ],
+            technicalSkills: [
+                {
+                    category: "Programming Languages",
+                    items: ["C", "C++", "Python", "Java"]
+                },
+                {
+                    category: "Web Technologies",
+                    items: ["HTML", "CSS"]
+                },
+                {
+                    category: "Databases & OS",
+                    items: ["SQL", "Linux (Basic)"]
+                },
+                {
+                    category: "Productivity Tools",
+                    items: ["Power BI", "Excel", "Word", "PowerPoint"]
+                }
+            ],
+            softSkills: ["Problem-solving", "Multitasking", "Team collaboration", "Adaptability"],
+            certifications: [
+                {
+                    title: "Java Programming Course",
+                    issuer: "NPTEL",
+                    score: "55%",
+                    details: "July - Oct 2024"
+                },
+                {
+                    title: "Cloud-Based Office Automation",
+                    issuer: "Value Added Course",
+                    details: "Certification"
+                },
+                {
+                    title: "Data Visualization using Power BI",
+                    issuer: "Value Added Course",
+                    details: "Certification"
+                },
+                {
+                    title: "Python and HTML",
+                    issuer: "Spoken Tutorial IIT Bombay",
+                    details: "Certification"
+                }
+            ],
+            workshops: [
+                {
+                    title: "National Level Webinar on Network Administration",
+                    organizer: "ENLIGHTEN Academy"
+                },
+                {
+                    title: "Python for Data Science (Skill Enhancement)",
+                    organizer: "Workshop Participant"
+                }
+            ],
+            extracurricular: [
+                "Member of Arutchelvar Manavar Sinthanai Mandram (College Level)",
+                "Inter-school Handball Team Player"
+            ],
+            personalDetails: {
+                dob: "24/05/2006",
+                languages: ["English", "Tamil", "Malayalam"],
+                location: "Pollachi, Coimbatore, Tamil Nadu"
+            }
+        };
+
+        const App = () => {
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+            const [scrolled, setScrolled] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 20);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const navLinks = [
+                { name: 'About', href: '#about', icon: React.createElement(User, { size: 18 }) },
+                { name: 'Skills', href: '#skills', icon: React.createElement(Code, { size: 18 }) },
+                { name: 'Education', href: '#education', icon: React.createElement(BookOpen, { size: 18 }) },
+                { name: 'Certifications', href: '#certifications', icon: React.createElement(Award, { size: 18 }) },
+                { name: 'Contact', href: '#contact', icon: React.createElement(Mail, { size: 18 }) },
+            ];
+
+            return React.createElement('div', { className: "min-h-screen" },
+                // Navbar
+                React.createElement('nav', { className: `fixed top-0 w-full z-[100] transition-all duration-300 ${scrolled ? 'glass py-3 shadow-2xl' : 'bg-transparent py-5'}` },
+                    React.createElement('div', { className: "max-w-7xl mx-auto flex justify-between items-center px-6" },
+                        React.createElement('a', { href: "#about", className: "text-2xl font-display font-bold gradient-text hover:opacity-80 transition-opacity" }, "KAVIYA R."),
+                        React.createElement('div', { className: "hidden md:flex items-center gap-10" },
+                            React.createElement('div', { className: "flex gap-8 text-sm font-semibold tracking-wide" },
+                                navLinks.map(link => React.createElement('a', { 
+                                    key: link.name, 
+                                    href: link.href, 
+                                    className: "text-slate-300 hover:text-blue-400 transition-colors py-2 relative group" 
+                                }, link.name, React.createElement('span', { className: "absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full" })))
+                            ),
+                            React.createElement('a', { href: "#contact", className: "px-5 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-bold transition-all transform hover:scale-105 shadow-lg shadow-blue-600/20" }, "Hire Me")
+                        ),
+                        React.createElement('button', { className: "md:hidden p-2 text-white bg-slate-800/50 rounded-lg", onClick: () => setIsMenuOpen(!isMenuOpen) }, 
+                            isMenuOpen ? React.createElement(X) : React.createElement(Menu)
+                        )
+                    )
+                ),
+
+                // Hero
+                React.createElement('section', { id: "about", className: "pt-40 pb-20 px-6 scroll-mt-24" },
+                    React.createElement('div', { className: "max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center" },
+                        React.createElement('div', { className: "relative z-10" },
+                            React.createElement('div', { className: "inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-8" },
+                                React.createElement('span', { className: "w-2 h-2 rounded-full bg-blue-500 animate-pulse" }),
+                                "Open for Internships 2024"
+                            ),
+                            React.createElement('h1', { className: "text-6xl md:text-7xl lg:text-9xl font-display font-bold leading-tight mb-8 uppercase tracking-tighter whitespace-nowrap" },
+                                "KAVIYA ", React.createElement('span', { className: "gradient-text" }, "R")
+                            ),
+                            React.createElement('p', { className: "text-xl text-slate-400 mb-10 max-w-lg leading-relaxed font-medium" }, "A Computer Science student at NGM College, blending logic with creativity to build efficient software solutions."),
+                            React.createElement('div', { className: "flex flex-wrap gap-5" },
+                                React.createElement('a', { href: "#contact", className: "px-10 py-4 bg-blue-600 hover:bg-blue-700 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl shadow-blue-600/30 flex items-center gap-3" }, "Let's Talk", React.createElement(ChevronRight, { size: 20 })),
+                                React.createElement('div', { className: "flex gap-3 items-center" },
+                                    React.createElement('a', { href: `mailto:${KAVIYA_DATA.email}`, className: "w-14 h-14 glass flex items-center justify-center rounded-xl text-slate-400 hover:text-white transition-all" }, React.createElement(Mail, { size: 24 })),
+                                    React.createElement('a', { href: `tel:${KAVIYA_DATA.phone.replace(/\s/g, '')}`, className: "w-14 h-14 glass flex items-center justify-center rounded-xl text-slate-400 hover:text-white transition-all" }, React.createElement(Phone, { size: 24 }))
+                                )
+                            )
+                        ),
+                        React.createElement('div', { className: "relative" },
+                            React.createElement('div', { className: "absolute inset-0 bg-blue-500/30 blur-[100px] rounded-full animate-pulse" }),
+                            React.createElement('div', { className: "relative glass rounded-3xl p-8 border border-white/10 shadow-2xl" },
+                                React.createElement('div', { className: "flex items-center gap-4 mb-8" },
+                                    React.createElement('div', { className: "flex gap-1.5" },
+                                        React.createElement('div', { className: "w-3 h-3 rounded-full bg-red-500/80" }),
+                                        React.createElement('div', { className: "w-3 h-3 rounded-full bg-yellow-500/80" }),
+                                        React.createElement('div', { className: "w-3 h-3 rounded-full bg-green-500/80" })
+                                    ),
+                                    React.createElement('div', { className: "flex-1 text-[10px] text-slate-500 font-mono text-center" }, "system_status: stable")
+                                ),
+                                React.createElement('div', { className: "font-mono text-base space-y-4" },
+                                    React.createElement('div', { className: "flex gap-3" }, React.createElement('span', { className: "text-blue-500 font-bold" }, "➜"), React.createElement('p', { className: "text-slate-300" }, "cat ", React.createElement('span', { className: "text-blue-400" }, "profile.json"))),
+                                    React.createElement('div', { className: "pl-6 space-y-2 text-sm border-l border-slate-800/50 ml-1.5" },
+                                        React.createElement('p', { className: "text-slate-400" }, '"name": ', React.createElement('span', { className: "text-green-400" }, '"KAVIYA R"'), ","),
+                                        React.createElement('p', { className: "text-slate-400" }, '"major": ', React.createElement('span', { className: "text-green-400" }, '"Computer Science"'), ","),
+                                        React.createElement('p', { className: "text-slate-400" }, '"stack": [', React.createElement('span', { className: "text-yellow-400" }, '"Python", "Java", "SQL"'), "]")
+                                    ),
+                                    React.createElement('div', { className: "flex gap-3 pt-2" }, React.createElement('span', { className: "text-blue-500 font-bold" }, "➜"), React.createElement('p', { className: "text-slate-300" }, "python3 ", React.createElement('span', { className: "text-blue-400" }, "career_goal.py"))),
+                                    React.createElement('p', { className: "text-blue-400 pl-6 text-sm" }, 'Output: "Aspiring Software Engineer"'),
+                                    React.createElement('div', { className: "flex items-center gap-2 pt-2" }, React.createElement('span', { className: "text-blue-500 font-bold" }, "➜"), React.createElement('span', { className: "animate-pulse bg-blue-500/60 w-3 h-5" }))
+                                )
+                            )
+                        )
+                    )
+                ),
+
+                // Skills
+                React.createElement('section', { id: "skills", className: "py-32 bg-slate-900/40 px-6 scroll-mt-24 border-y border-white/5" },
+                    React.createElement('div', { className: "max-w-7xl mx-auto" },
+                        React.createElement('div', { className: "mb-16" },
+                            React.createElement('p', { className: "text-blue-500 font-bold uppercase tracking-[0.2em] text-xs mb-4" }, "Abilities"),
+                            React.createElement('h2', { className: "text-4xl md:text-5xl font-display font-bold mb-4" }, "Core Competencies")
+                        ),
+                        React.createElement('div', { className: "grid sm:grid-cols-2 lg:grid-cols-4 gap-8" },
+                            KAVIYA_DATA.technicalSkills.map((skill, idx) => React.createElement('div', { key: idx, className: "glass p-8 rounded-2xl group hover:bg-slate-900/50" },
+                                React.createElement('div', { className: "bg-blue-600/10 w-14 h-14 rounded-xl flex items-center justify-center mb-8" }, React.createElement(Code, { className: "text-blue-400", size: 28 })),
+                                React.createElement('h3', { className: "text-xl font-bold mb-6 text-white" }, skill.category),
+                                React.createElement('div', { className: "flex flex-wrap gap-2.5" },
+                                    skill.items.map((item, i) => React.createElement('span', { key: i, className: "text-xs px-3 py-1.5 bg-slate-800/80 rounded-lg border border-white/5 text-slate-300" }, item))
+                                )
+                            ))
+                        )
+                    )
+                ),
+
+                // Education
+                React.createElement('section', { id: "education", className: "py-32 px-6 scroll-mt-24" },
+                    React.createElement('div', { className: "max-w-7xl mx-auto grid lg:grid-cols-3 gap-16" },
+                        React.createElement('div', { className: "lg:col-span-2" },
+                            React.createElement('p', { className: "text-blue-500 font-bold uppercase tracking-[0.2em] text-xs mb-4" }, "Timeline"),
+                            React.createElement('h2', { className: "text-4xl font-display font-bold mb-16" }, "Academic Journey"),
+                            React.createElement('div', { className: "space-y-16" },
+                                KAVIYA_DATA.education.map((edu, idx) => React.createElement('div', { key: idx, className: "relative pl-12 border-l-2 border-slate-800/50 pb-2 group" },
+                                    React.createElement('div', { className: "absolute left-[-11px] top-0 w-5 h-5 rounded-full bg-slate-900 border-4 border-blue-600" }),
+                                    React.createElement('div', { className: "flex flex-col md:flex-row md:justify-between items-start mb-4 gap-4" },
+                                        React.createElement('div', null,
+                                            React.createElement('h3', { className: "text-2xl font-bold text-white mb-1" }, edu.degree),
+                                            React.createElement('p', { className: "text-slate-400 font-medium" }, edu.institution)
+                                        ),
+                                        React.createElement('span', { className: "text-sm font-black text-blue-400 bg-blue-400/10 px-4 py-1.5 rounded-full border border-blue-400/20" }, edu.period)
+                                    ),
+                                    React.createElement('div', { className: "flex flex-wrap gap-6 text-sm text-slate-500" },
+                                        React.createElement('span', { className: "flex items-center gap-2" }, React.createElement(MapPin, { size: 16, className: "text-blue-500" }), edu.location),
+                                        React.createElement('span', { className: "flex items-center gap-2" }, React.createElement(Award, { size: 16, className: "text-yellow-500" }), "Score: ", edu.score)
+                                    )
+                                ))
+                            )
+                        ),
+                        React.createElement('div', { className: "space-y-8" },
+                            React.createElement('div', { className: "glass p-10 rounded-3xl" },
+                                React.createElement('h2', { className: "text-2xl font-display font-bold mb-8 flex items-center gap-3 text-white" }, React.createElement(Briefcase, { size: 22, className: "text-blue-500" }), "Soft Skills"),
+                                React.createElement('div', { className: "flex flex-wrap gap-3" }, KAVIYA_DATA.softSkills.map((skill, idx) => React.createElement('span', { key: idx, className: "px-4 py-2 bg-slate-800/50 rounded-xl text-slate-300 text-sm font-bold" }, skill))),
+                                React.createElement('hr', { className: "my-10 border-white/5" }),
+                                React.createElement('h2', { className: "text-2xl font-display font-bold mb-8 flex items-center gap-3 text-white" }, React.createElement(User, { size: 22, className: "text-blue-500" }), "Personal Info"),
+                                React.createElement('div', { className: "space-y-6 text-sm" },
+                                    React.createElement('div', { className: "flex justify-between items-center" }, React.createElement('span', { className: "text-slate-500" }, "Birthday"), React.createElement('span', { className: "text-slate-200 font-bold" }, KAVIYA_DATA.personalDetails.dob)),
+                                    React.createElement('div', { className: "flex justify-between items-center" }, React.createElement('span', { className: "text-slate-500" }, "Languages"), React.createElement('span', { className: "text-slate-200 font-bold" }, KAVIYA_DATA.personalDetails.languages.join(', '))),
+                                    React.createElement('div', { className: "flex justify-between items-center" }, React.createElement('span', { className: "text-slate-500" }, "Base"), React.createElement('span', { className: "text-slate-200 font-bold" }, "Pollachi, TN"))
+                                )
+                            )
+                        )
+                    )
+                ),
+
+                // Certifications & Extra
+                React.createElement('section', { id: "certifications", className: "py-32 px-6 scroll-mt-24" },
+                    React.createElement('div', { className: "max-w-7xl mx-auto" },
+                        React.createElement('h2', { className: "text-4xl md:text-5xl font-display font-bold mb-20 text-center" }, "Achievements"),
+                        React.createElement('div', { className: "grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24" },
+                            KAVIYA_DATA.certifications.map((cert, idx) => React.createElement('div', { key: idx, className: "glass p-8 rounded-2xl border-t-2 border-t-blue-600" },
+                                React.createElement('div', { className: "w-10 h-10 rounded-lg bg-blue-600/10 flex items-center justify-center text-blue-500 mb-6" }, React.createElement(Award, { size: 20 })),
+                                React.createElement('h3', { className: "font-bold text-lg mb-3 text-white" }, cert.title),
+                                React.createElement('p', { className: "text-slate-500 text-xs pb-6" }, cert.issuer),
+                                React.createElement('div', { className: "pt-6 border-t border-white/5 text-blue-400 font-black text-sm" }, cert.details)
+                            ))
+                        ),
+                        React.createElement('div', { className: "grid md:grid-cols-2 gap-16" },
+                            React.createElement('div', { className: "glass p-10 rounded-3xl" },
+                                React.createElement('h3', { className: "text-2xl font-display font-bold mb-10 flex items-center gap-4" }, React.createElement(Terminal, { size: 24, className: "text-blue-500" }), "Workshops"),
+                                React.createElement('div', { className: "space-y-6" }, KAVIYA_DATA.workshops.map((ws, i) => React.createElement('div', { key: i, className: "flex gap-5" },
+                                    React.createElement('div', { className: "text-blue-500 bg-blue-500/10 w-10 h-10 rounded-lg flex items-center justify-center" }, React.createElement(ChevronRight, { size: 20 })),
+                                    React.createElement('div', null, React.createElement('h4', { className: "font-bold text-slate-200" }, ws.title), React.createElement('p', { className: "text-sm text-slate-500" }, ws.organizer))
+                                )))
+                            ),
+                            React.createElement('div', { className: "glass p-10 rounded-3xl" },
+                                React.createElement('h3', { className: "text-2xl font-display font-bold mb-10 flex items-center gap-4" }, React.createElement(User, { size: 24, className: "text-blue-500" }), "Extra curricular"),
+                                React.createElement('div', { className: "space-y-6" }, KAVIYA_DATA.extracurricular.map((item, i) => React.createElement('div', { key: i, className: "flex gap-5" },
+                                    React.createElement('div', { className: "text-blue-500 bg-blue-500/10 w-10 h-10 rounded-lg flex items-center justify-center" }, React.createElement(ChevronRight, { size: 20 })),
+                                    React.createElement('p', { className: "text-slate-300 font-medium" }, item)
+                                )))
+                            )
+                        )
+                    )
+                ),
+
+                // Contact
+                React.createElement('section', { id: "contact", className: "py-32 px-6 scroll-mt-24" },
+                    React.createElement('div', { className: "max-w-7xl mx-auto glass p-12 lg:p-20 rounded-[3rem] shadow-3xl" },
+                        React.createElement('div', { className: "grid lg:grid-cols-5 gap-20" },
+                            React.createElement('div', { className: "lg:col-span-2" },
+                                React.createElement('h2', { className: "text-5xl font-display font-bold mb-8" }, "Start a ", React.createElement('br'), React.createElement('span', { className: "gradient-text" }, "Conversation")),
+                                React.createElement('p', { className: "text-slate-400 mb-12 text-lg" }, "I'm seeking internships where I can apply my Python and Java skills."),
+                                React.createElement('div', { className: "space-y-10" },
+                                    React.createElement('div', { className: "flex items-center gap-6 group" },
+                                        React.createElement('div', { className: "w-16 h-16 rounded-2xl bg-blue-600/10 flex items-center justify-center text-blue-500" }, React.createElement(Mail, { size: 28 })),
+                                        React.createElement('div', null, React.createElement('p', { className: "text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1" }, "Email Me"), React.createElement('a', { href: `mailto:${KAVIYA_DATA.email}`, className: "text-xl font-bold hover:text-blue-400" }, KAVIYA_DATA.email))
+                                    ),
+                                    React.createElement('div', { className: "flex items-center gap-6 group" },
+                                        React.createElement('div', { className: "w-16 h-16 rounded-2xl bg-green-600/10 flex items-center justify-center text-green-500" }, React.createElement(Phone, { size: 28 })),
+                                        React.createElement('div', null, React.createElement('p', { className: "text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1" }, "Call Me"), React.createElement('a', { href: `tel:${KAVIYA_DATA.phone}`, className: "text-xl font-bold hover:text-green-400" }, KAVIYA_DATA.phone))
+                                    )
+                                )
+                            ),
+                            React.createElement('div', { className: "lg:col-span-3 space-y-8 bg-white/5 p-8 lg:p-12 rounded-[2rem]" },
+                                React.createElement('div', { className: "grid grid-cols-2 gap-8" },
+                                    React.createElement('input', { type: "text", className: "w-full bg-slate-900 border border-white/10 rounded-2xl px-6 py-4 text-white", placeholder: "Name" }),
+                                    React.createElement('input', { type: "email", className: "w-full bg-slate-900 border border-white/10 rounded-2xl px-6 py-4 text-white", placeholder: "Email" })
+                                ),
+                                React.createElement('textarea', { className: "w-full bg-slate-900 border border-white/10 rounded-2xl px-6 py-4 text-white min-h-[180px]", placeholder: "Message" }),
+                                React.createElement('button', { className: "w-full py-5 bg-blue-600 text-white font-black rounded-2xl hover:bg-blue-700 flex items-center justify-center gap-3 text-lg uppercase tracking-widest" }, "Send Message", React.createElement(Send, { size: 20 }))
+                            )
+                        )
+                    )
+                ),
+
+                // Footer
+                React.createElement('footer', { className: "py-20 border-t border-white/5 text-center" },
+                    React.createElement('h3', { className: "text-2xl font-display font-bold gradient-text mb-8" }, "KAVIYA R."),
+                    React.createElement('div', { className: "flex justify-center gap-8 mb-12 text-slate-500" },
+                        React.createElement('a', { href: "#" }, React.createElement(Linkedin, { size: 24 })),
+                        React.createElement('a', { href: "#" }, React.createElement(Github, { size: 24 }))
+                    ),
+                    React.createElement('p', { className: "text-slate-600 text-sm font-medium" }, `© ${new Date().getFullYear()} KAVIYA R. All Rights Reserved.`)
+                )
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(App));
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
